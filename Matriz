@@ -1,0 +1,95 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Preencher a matriz
+        System.out.println("Preencha a matriz 4x4:");
+        double[][] matriz = new double[4][4];
+        PreenchimentoMatriz preenchimentoMatriz = new PreenchimentoMatriz(matriz);
+        preenchimentoMatriz.preencherMatriz(scanner);
+
+        // Menu de opções
+        int opcao;
+        do {
+            System.out.println("\nEscolha uma opção:");
+            System.out.println("1. Exibir valores da diagonal principal");
+            System.out.println("2. Exibir valores da diagonal secundária");
+            System.out.println("3. Exibir matriz transposta");
+            System.out.println("4. Sair");
+
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    preenchimentoMatriz.exibirDiagonalPrincipal();
+                    break;
+                case 2:
+                    preenchimentoMatriz.exibirDiagonalSecundaria();
+                    break;
+                case 3:
+                    MatrizTransposta matrizTransposta = new MatrizTransposta(matriz);
+                    matrizTransposta.exibirTransposta();
+                    break;
+                case 4:
+                    System.out.println("Programa encerrado.");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+            }
+        } while (opcao != 4);
+
+        scanner.close();
+    }
+}
+
+class PreenchimentoMatriz {
+    private double[][] matriz;
+
+    public PreenchimentoMatriz(double[][] matriz) {
+        this.matriz = matriz;
+    }
+
+    public void preencherMatriz(Scanner scanner) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print("Digite o valor para a posição [" + i + "][" + j + "]: ");
+                matriz[i][j] = scanner.nextDouble();
+            }
+        }
+    }
+
+    public void exibirDiagonalPrincipal() {
+        System.out.println("Valores da diagonal principal:");
+        for (int i = 0; i < 4; i++) {
+            System.out.println(matriz[i][i]);
+        }
+    }
+
+    public void exibirDiagonalSecundaria() {
+        System.out.println("Valores da diagonal secundária:");
+        for (int i = 0; i < 4; i++) {
+            System.out.println(matriz[i][3 - i]);
+        }
+    }
+}
+
+class MatrizTransposta {
+    private double[][] matrizOriginal;
+
+    public MatrizTransposta(double[][] matrizOriginal) {
+        this.matrizOriginal = matrizOriginal;
+    }
+
+    public void exibirTransposta() {
+        System.out.println("Matriz transposta:");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizOriginal[j][i] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
